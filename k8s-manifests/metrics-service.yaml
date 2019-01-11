@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: deployment-restart-controller
+  name: deployment-restart-controller
+  namespace: kube-system
+spec:
+  clusterIP: None
+  ports:
+  - name: metrics
+    port: 10254
+    protocol: TCP
+    targetPort: 10254
+  selector:
+    app: deployment-restart-controller

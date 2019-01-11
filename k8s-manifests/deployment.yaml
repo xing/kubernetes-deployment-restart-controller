@@ -1,0 +1,41 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: deployment-restart-controller
+  namespace: kube-system
+  labels:
+    app: deployment-restart-controller
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: deployment-restart-controller
+  template:
+    metadata:
+      labels:
+        app: deployment-restart-controller
+    spec:
+      serviceAccountName: deployment-restart-controller
+      containers:
+      - name: deployment-restart-controller
+        image: xingse/kubernetes-deployment-restart-controller
+        ports:
+        - containerPort: 10254
+          name: metrics
+          protocol: TCP
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests: &requests
+            cpu: 100m
+            memory: 100Mi
+          limits: *requests
+        env:
+        - name: VERBOSE
+          value: "1"

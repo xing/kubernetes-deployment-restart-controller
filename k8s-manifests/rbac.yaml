@@ -1,0 +1,31 @@
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: xing:controller:deployment-restart
+rules:
+- apiGroups: [""]
+  resources: ["configmaps", "secrets"]
+  verbs: ["get", "watch", "list"]
+- apiGroups: ["apps", "extensions"]
+  resources: ["deployments", "statefulsets"]
+  verbs: ["get", "watch", "list", "patch"]
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: deployment-restart-controller
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: xing:controller:deployment-restart
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: xing:controller:deployment-restart
+subjects:
+- kind: ServiceAccount
+  name: deployment-restart-controller
+  namespace: kube-system
