@@ -1,16 +1,9 @@
 # Kubernetes Deployment Restart Controller
 
-Automatically restarting an application when its configuration settings are modified can
-be very useful with Kubernetes, given the flexibility in update strategies it provides.
-Unfortunately, Kubernetes has no built-in functionality to trigger a Deployment update
-when related ConfigMap or Secret data is changed, and implementing it properly [is not a
-trivial task][22368].
+This Kubernetes controller watches ConfigMaps and Secrets referenced by Deployments and
+StatefulSets and triggers restarts as soon as configuration or secret values change.
 
-This controller implements the missing deployment restart functionality by listening to
-resource changes in the cluster and triggering deployment updates when necessary. See
-[Implementation Details] for a more accurate description of the process.
-
-## Installation and Configuration
+## Installation
 
 The [k8s-manifests] folder contains the necessary configuration files. Adjust them to your
 taste and apply in the given order:
@@ -21,9 +14,12 @@ Optionally, create the [metrics Service]:
 
     kubectl apply -f k8s-manifests/metrics-service.yaml
 
-The controller only monitors and restarts deployments that are explicitly marked for
-participation in the process. To do that you need to set an annotation on all the
-Deployments and StatefulSets you want to be taken care of:
+## Configuration
+
+Automatic restart functionality is enabled on per-Deployment (StatefulSet) basis.
+
+The only thing you need to do is set the `com.xing.deployment-restart` annotation on the
+desired Deployment (or StatefulSet) to `enabled`:
 
 ```yml
 apiVersion: apps/v1beta2
@@ -33,6 +29,10 @@ metadata:
     com.xing.deployment-restart: enabled
   # the rest of the deployment manifest
 ```
+
+Controller monitors deployment manifests and automatically watches or stops watching
+relevant ConfigMaps and Secrets. It also stops restarting a deployment as soon as
+annotation is removed or changed to anything else than `enabled`.
 
 ## Implementation Details
 
