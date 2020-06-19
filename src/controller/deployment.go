@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/golang/glog"
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller/interfaces"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/interfaces"
 )
 
 // Deployment stores a MetaDeployment instance and a map of configs referenced by it

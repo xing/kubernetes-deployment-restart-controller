@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"k8s.io/api/core/v1"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/interfaces"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller/interfaces"
 )
 
 const (

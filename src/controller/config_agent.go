@@ -4,9 +4,9 @@ import (
 	"time"
 
 	"github.com/golang/glog"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/interfaces"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/lib"
 	"k8s.io/client-go/kubernetes"
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller/interfaces"
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/lib"
 )
 
 // RealConfigAgent implements interfaces.ConfigAgent

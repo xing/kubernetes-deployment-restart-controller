@@ -2,9 +2,10 @@ package lib
 
 import (
 	"encoding/json"
+
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/interfaces"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/kubernetes"
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller/interfaces"
 )
 
 type k8sClient struct {

@@ -1,4 +1,6 @@
-module source.xing.com/olympus/kubernetes-deployment-restart-controller
+module github.com/xing/kubernetes-deployment-restart-controller
+
+go 1.14
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect

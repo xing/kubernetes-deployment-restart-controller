@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller/test"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/test"
 )
 
 func TestNewPendingConfigReturnsPendingConfig(t *testing.T) {

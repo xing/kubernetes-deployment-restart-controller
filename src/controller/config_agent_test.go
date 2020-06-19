@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller/test"
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/util"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/test"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/util"
 )
 
 func TestStopLoop(t *testing.T) {

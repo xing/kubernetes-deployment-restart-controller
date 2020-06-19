@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller/interfaces"
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/util"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/interfaces"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/util"
 
 	"github.com/golang/glog"
 

@@ -10,8 +10,8 @@ import (
 	"github.com/golang/glog"
 	"github.com/prometheus/client_golang/prometheus"
 
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller"
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/util"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/util"
 )
 
 var options struct {
