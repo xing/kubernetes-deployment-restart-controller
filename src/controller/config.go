@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller/interfaces"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/interfaces"
 )
 
 // Config represents a config instance and a map of deployments referencing it

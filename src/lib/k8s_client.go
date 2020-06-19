@@ -2,9 +2,10 @@ package lib
 
 import (
 	"encoding/json"
+
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/interfaces"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/kubernetes"
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller/interfaces"
 )
 
 type k8sClient struct {
@@ -30,6 +31,6 @@ func (c *k8sClient) PatchStatefulSet(namespace, name string, patchData interface
 	if err != nil {
 		return
 	}
-	_, err = c.Interface.AppsV1beta1().StatefulSets(namespace).Patch(name, types.MergePatchType, encodedData)
+	_, err = c.Interface.AppsV1().StatefulSets(namespace).Patch(name, types.MergePatchType, encodedData)
 	return
 }

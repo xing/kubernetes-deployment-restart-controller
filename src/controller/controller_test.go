@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/test"
 	"k8s.io/client-go/tools/cache"
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller/test"
 )
 
 func init() {

@@ -1,7 +1,7 @@
 package test
 
 import (
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller/interfaces"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/interfaces"
 )
 
 type DummyMetaDeployment struct {

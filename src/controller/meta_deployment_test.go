@@ -10,7 +10,7 @@ import (
 	yaml "gopkg.in/yaml.v2"
 	apps "k8s.io/api/apps/v1"
 
-	"source.xing.com/olympus/kubernetes-deployment-restart-controller/src/controller/test"
+	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/test"
 )
 
 func TestMetaDeploymentFromDeploymentReturnsValidMetaDeployment(t *testing.T) {
