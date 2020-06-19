@@ -22,7 +22,7 @@ The only thing you need to do is set the `com.xing.deployment-restart` annotatio
 desired Deployment (or StatefulSet) to `enabled`:
 
 ```yml
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
@@ -177,7 +177,7 @@ Help Options:
 
 ## Development
 
-This project uses go modules introduced by [go 1.11][go-modules]. Please put the project
+This project uses go modules introduced by [go 1.14][go-modules]. Please put the project
 somewhere outside of your GOPATH to make go automatically recogninze this.
 
 All build and install steps are managed in the [Makefile](Makefile). `make test` will
@@ -202,7 +202,7 @@ will tag the built docker image accordingly.
 [22368]: https://github.com/kubernetes/kubernetes/issues/22368
 [implementation details]: #implementation-details
 [metrics service]: #runtime-metrics
-[k8s-manifests]: tree/master/k8s-manifests
+[k8s-manifests]: k8s-manifests
 [installation and configuration]: #installation-and-configuration
 [command line arguments]: #command-line-arguments
 [go-modules]: https://github.com/golang/go/wiki/Modules
