@@ -2,7 +2,9 @@ package lib
 
 import (
 	"encoding/json"
+	"context"
 
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/interfaces"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/kubernetes"
@@ -22,7 +24,7 @@ func (c *k8sClient) PatchDeployment(namespace, name string, patchData interface{
 	if err != nil {
 		return
 	}
-	_, err = c.Interface.AppsV1().Deployments(namespace).Patch(name, types.MergePatchType, encodedData)
+	_, err = c.Interface.AppsV1().Deployments(namespace).Patch(context.TODO(), name, types.MergePatchType, encodedData, metav1.PatchOptions{})
 	return
 }
 
@@ -31,6 +33,6 @@ func (c *k8sClient) PatchStatefulSet(namespace, name string, patchData interface
 	if err != nil {
 		return
 	}
-	_, err = c.Interface.AppsV1().StatefulSets(namespace).Patch(name, types.MergePatchType, encodedData)
+	_, err = c.Interface.AppsV1().StatefulSets(namespace).Patch(context.TODO(), name, types.MergePatchType, encodedData, metav1.PatchOptions{})
 	return
 }
