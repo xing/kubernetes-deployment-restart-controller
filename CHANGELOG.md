@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 ### Changed
 
+## 1.2.0
+### Changed
+- Use go 1.16
+- Update for Kubernetes 1.20 
 
 ## 1.1.0 - 2020-06-19
 ### Added
@@ -20,3 +24,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 1.0.0 - 2019-01-11
 ### Added
 - Initial release as Open-Source under the Apache License v2.0
+
+[1.2.0] https://github.com/xing/kubernetes-deployment-restart-controller/compare/v1.1.0...v1.2.0
