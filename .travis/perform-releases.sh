@@ -18,7 +18,7 @@ docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 docker push "$image"
 
 current_version=$(docker run --rm "$image" --version | grep -oE "$app_name [^ ]+" | cut -d ' ' -f2)
-current_version_commit=$(git rev-parse "$current_version")
+current_version_commit=$(git rev-list -n 1 "$current_version")
 head_commit=$(git rev-parse HEAD)
 
 if [[ "$head_commit" = "$current_version_commit" ]]; then
