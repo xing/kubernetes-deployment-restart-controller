@@ -7,3 +7,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: "make image"
+      - if: github.ref == 'refs/heads/master'
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - #if: github.ref == 'refs/heads/master'
+        run: |
+          image="xingse/kubernetes-deployment-restart-controller"
+          current_version=$(docker run "$image" --rm  --version | cut -d" " -f2)
+          current_version_commit=$(git rev-list -n 1 "$current_version")
+          head_commit=$(git rev-parse HEAD)
+
+          if [[ "$head_commit" = "$current_version_commit" ]]; then
+            docker tag "$image" "$image:$current_version"
+            docker push "$image:$current_version"
+          fi
