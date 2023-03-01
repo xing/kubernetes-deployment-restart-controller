@@ -15,7 +15,7 @@ jobs:
       - #if: github.ref == 'refs/heads/master'
         run: |
           image="xingse/kubernetes-deployment-restart-controller"
-          current_version=$(docker run "$image" --rm  --version | cut -d" " -f2)
+          current_version=$(docker run --rm "$image" --version | cut -d" " -f2)
           current_version_commit=$(git rev-list -n 1 "$current_version")
           head_commit=$(git rev-parse HEAD)
 
