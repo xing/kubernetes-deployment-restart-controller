@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - allow to ignore errors when updating resources fails
 
 ### Changed
+- Use go 1.20
+- Update all dependencies
+- final container image is from `scratch` (as opposed to outdated Alpine version)
 
 ## 1.2.2
 ### Changed

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	yaml "gopkg.in/yaml.v2"
+	yaml "gopkg.in/yaml.v3"
 	apps "k8s.io/api/apps/v1"
 
 	"github.com/xing/kubernetes-deployment-restart-controller/src/controller/test"
