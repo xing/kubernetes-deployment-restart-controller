@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - run: "make image"
       - if: github.ref == 'refs/heads/master'
         uses: docker/login-action@v2
@@ -22,4 +24,6 @@ jobs:
           if [[ "$head_commit" = "$current_version_commit" ]]; then
             docker tag "$image" "$image:$current_version"
             docker push "$image:$current_version"
+          else
+            echo "current commit ($head_commit) is not the one tagged for $version ($current_version_commit) so will not update image"
           fi
