@@ -10,5 +10,5 @@ jobs:
         with:
           go-version-file: 'go.mod'
       - run: "make"
-      - run: "make test"
+      - run: "HOME=./testdata make test"
       - run: "make image"
