@@ -1,7 +1,11 @@
-FROM golang:1.16
+FROM golang:1.20
+
+WORKDIR /src/
+
+COPY go.* /src/
+RUN go mod download
 
 COPY . /src/
-WORKDIR /src/
 
 COPY ./testdata/.kube/config /root/.kube/config
 
@@ -12,6 +16,6 @@ RUN make clean \
   && make test \
   && make
 
-FROM gliderlabs/alpine:3.8
+FROM scratch
 COPY --from=0 /src/kubernetes-deployment-restart-controller /usr/bin/kubernetes-deployment-restart-controller
 ENTRYPOINT ["/usr/bin/kubernetes-deployment-restart-controller"]
