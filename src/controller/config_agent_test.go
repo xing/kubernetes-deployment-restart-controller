@@ -412,6 +412,22 @@ func TestConfigChangesProcessStopsOnError(t *testing.T) {
 	equals(t, d.UpdatedRestart, true)
 }
 
+func TestConfigChangesProcessContinuesOnIgnoredErrors(t *testing.T) {
+	a := agent()
+	c := configAUpdated()
+	d := deploymentA()
+	d.UpdateError = errors.New("ignore-me")
+
+	a.Start(nil)
+	a.ResourceUpdated(c)
+	a.ResourceUpdated(d)
+	time.Sleep(150 * time.Millisecond)
+	a.Stop()
+
+	equals(t, len(a.changes), 0)
+	equals(t, d.UpdatedRestart, true)
+}
+
 func configA() *test.DummyMetaConfig {
 	return test.NewMetaConfigWithParams("configmap/test/test", "12345", "abc")
 }
@@ -456,7 +472,7 @@ func agent() *RealConfigAgent {
 	// flag.Set("logtostderr", "true")
 	// flag.Set("v", "3")
 	// flag.CommandLine.Parse([]string{})
-	agent := NewConfigAgent(util.Clientset(), 20*time.Millisecond, 100*time.Millisecond).(*RealConfigAgent)
+	agent := NewConfigAgent(util.Clientset(), 20*time.Millisecond, 100*time.Millisecond, []string{"ignore-me"}).(*RealConfigAgent)
 	agent.k8sClient = test.NewDummyK8sClient()
 	return agent
 }

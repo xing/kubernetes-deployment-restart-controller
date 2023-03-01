@@ -149,7 +149,7 @@ func TestDeletingUnknownResourceDoesNothing(t *testing.T) {
 }
 
 func controller() *DeploymentConfigController {
-	controller := NewDeploymentConfigController(100*time.Millisecond, 1*time.Second)
+	controller := NewDeploymentConfigController(100*time.Millisecond, 1*time.Second, []string{})
 	controller.configAgent = test.NewDummyConfigAgent()
 	return controller
 }

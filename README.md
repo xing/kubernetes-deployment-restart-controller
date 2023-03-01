@@ -166,8 +166,14 @@ Usage:
   kubernetes-deployment-restart-controller [OPTIONS]
 
 Application Options:
-  -c, --restart-check-period= Time interval to check for pending restarts in milliseconds (default: 500) [$RESTART_CHECK_PERIOD]
-  -r, --restart-grace-period= Time interval to compact restarts in seconds (default: 5) [$RESTART_GRACE_PERIOD]
+  -c, --restart-check-period= Time interval to check for pending restarts in milliseconds
+                              (default: 500) [$RESTART_CHECK_PERIOD]
+  -r, --restart-grace-period= Time interval to compact restarts in seconds (default: 5)
+                              [$RESTART_GRACE_PERIOD]
+      --ignored-errors=       List of error patterns to just warn of, instead of exiting the controller.
+                              Useful if previously legal objects are not valid anymore but have not yet
+                              been updated, e.g. on admission control changes. ENV var splits on ;
+                              (semicolon). [$IGNORED_ERRORS]
   -v, --verbose=              Be verbose [$VERBOSE]
       --version               Print version information and exit
 

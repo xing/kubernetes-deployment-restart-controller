@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"strings"
 	"time"
 
 	"github.com/golang/glog"
@@ -17,6 +18,8 @@ type RealConfigAgent struct {
 	restartCheckPeriod time.Duration
 	restartGracePeriod time.Duration
 
+	ignoredErrors []string
+
 	configs     map[string]*Config
 	deployments map[string]*Deployment
 
@@ -32,13 +35,15 @@ type RealConfigAgent struct {
 }
 
 // NewConfigAgent creates a new real instance of interfaces.ConfigAgent
-func NewConfigAgent(k8sClient kubernetes.Interface, restartCheckPeriod, restartGracePeriod time.Duration) interfaces.ConfigAgent {
+func NewConfigAgent(k8sClient kubernetes.Interface, restartCheckPeriod, restartGracePeriod time.Duration, ignoredErrors []string) interfaces.ConfigAgent {
 	return &RealConfigAgent{
 		updateResourceCh: make(chan interfaces.MetaResource),
 		deleteResourceCh: make(chan interfaces.MetaResource),
 
 		restartCheckPeriod: restartCheckPeriod,
 		restartGracePeriod: restartGracePeriod,
+
+		ignoredErrors: ignoredErrors,
 
 		configs:     make(map[string]*Config),
 		deployments: make(map[string]*Deployment),
@@ -396,12 +401,27 @@ func (c *RealConfigAgent) updateDeployment(deployment *Deployment) {
 
 	err := deployment.SaveChecksums(c.k8sClient, restart)
 	if err != nil {
-		c.stopWithError(err)
+		if reason, ignored := c.isIgnoredError(err); ignored {
+			glog.Warningf("Deployment %s failed to update, but error was configured as non-critical: %s", deployment.meta.FullName(), reason)
+		} else {
+			c.stopWithError(err)
+		}
+		return
 	}
 
 	if restart {
 		DeploymentRestartsTotal.WithLabelValues().Inc()
 	}
+}
+
+func (c *RealConfigAgent) isIgnoredError(err error) (string, bool) {
+	str := err.Error()
+	for _, reason := range c.ignoredErrors {
+		if strings.Contains(str, reason) {
+			return reason, true
+		}
+	}
+	return "", false
 }
 
 func (c *RealConfigAgent) stopWithError(err error) {
