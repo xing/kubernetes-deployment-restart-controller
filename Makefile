@@ -5,7 +5,7 @@ BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
 
 all: kubernetes-deployment-restart-controller
 
-kubernetes-deployment-restart-controller:
+kubernetes-deployment-restart-controller: $(shell find . -name "*.go") $(wildcard go.*)
 	go build -i
 
 clean:
