@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+### Changed
+
+## 1.3.0
+### Added
 - allow to ignore errors when updating resources fails
 
 ### Changed
