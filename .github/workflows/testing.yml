@@ -25,5 +25,5 @@ jobs:
             docker tag "$image" "$image:$current_version"
             docker push "$image:$current_version"
           else
-            echo "current commit ($head_commit) is not the one tagged for $version ($current_version_commit) so will not update image"
+            echo "current commit ($head_commit) is not the one tagged for $current_version ($current_version_commit) so will not update image"
           fi
