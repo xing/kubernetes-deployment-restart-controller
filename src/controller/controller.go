@@ -26,12 +26,12 @@ type DeploymentConfigController struct {
 }
 
 // NewDeploymentConfigController creates a new instance of DeploymentConfigController
-func NewDeploymentConfigController(restartCheckPeriod time.Duration, restartGracePeriod time.Duration) *DeploymentConfigController {
+func NewDeploymentConfigController(restartCheckPeriod time.Duration, restartGracePeriod time.Duration, ignoredErrors []string) *DeploymentConfigController {
 	k8sClient := util.Clientset()
 	factory := informers.NewSharedInformerFactory(k8sClient, 5*time.Minute)
 
 	dcc := &DeploymentConfigController{
-		configAgent: NewConfigAgent(k8sClient, restartCheckPeriod, restartGracePeriod),
+		configAgent: NewConfigAgent(k8sClient, restartCheckPeriod, restartGracePeriod, ignoredErrors),
 		factory:     factory,
 		Stop:        make(chan struct{}),
 	}

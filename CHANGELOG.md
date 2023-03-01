@@ -6,12 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- allow to ignore errors when updating resources fails
+
 ### Changed
 
 ## 1.2.2
 ### Changed
 - Use go 1.16
-- Update for Kubernetes 1.20 
+- Update for Kubernetes 1.20
 
 ## 1.1.0 - 2020-06-19
 ### Added
