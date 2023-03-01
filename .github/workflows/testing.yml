@@ -1,0 +1,29 @@
+name: Testing
+run-name: tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: "make image"
+      - if: github.ref == 'refs/heads/master'
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - if: github.ref == 'refs/heads/master'
+        run: |
+          image="xingse/kubernetes-deployment-restart-controller"
+          current_version=$(docker run --rm "$image" --version | cut -d" " -f2)
+          current_version_commit=$(git rev-list -n 1 "$current_version")
+          head_commit=$(git rev-parse HEAD)
+
+          if [[ "$head_commit" = "$current_version_commit" ]]; then
+            docker tag "$image" "$image:$current_version"
+            docker push "$image:$current_version"
+          else
+            echo "current commit ($head_commit) is not the one tagged for $current_version ($current_version_commit) so will not update image"
+          fi

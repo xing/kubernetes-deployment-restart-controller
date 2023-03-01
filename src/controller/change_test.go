@@ -15,5 +15,6 @@ func TestNewChangeReturnsAChangeWithOneObservationAndPositiveAge(t *testing.T) {
 func TestChangeAgeIncreasesOverTime(t *testing.T) {
 	c := NewChange()
 	age := c.Age()
+	time.Sleep(10 * time.Millisecond)
 	equals(t, c.Age() > age, true)
 }
