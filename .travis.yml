@@ -1,7 +1,0 @@
-sudo: required
-services:
-  - docker
-script:
-  - make image
-after_success:
-  - .travis/perform-releases.sh kubernetes-deployment-restart-controller xingse/kubernetes-deployment-restart-controller
